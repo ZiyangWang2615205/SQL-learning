@@ -29,5 +29,29 @@ DROP DATABASE test;
 
 会强制删除掉test的database，且里面的内容不会保存，不推荐使用
 
+### Create Table
 
+```text
+CREATE TABLE test(
+    test_column INT
+);
+```
+这里创建了一个名为test的table，里面有一个test_column存储int类型的数据
 
+### Alter Table
+
+```text
+ALTER TABLE test
+ADD another_column VARCHAR(255);
+```
+```ALTER``` 用与修改表结构，这里修改已经存在的table test，
+```ADD``` 增加了一个column
+VARCHAR(255)表示一个字符长度最多为255的文本
+
+由于SQL每次读command都以；为划分，所以对于SQL来说：
+```text
+ALTER TABLE test
+ADD another_column 
+VARCHAR(255);
+```
+和上面的例子没有本质区别
