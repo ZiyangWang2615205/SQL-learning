@@ -8,14 +8,13 @@ SQL-learning/
 ├── README.md
 ├── docker-compose.yml
 ├── week-01-sql-mysql/
-│   ├── day01-basic-select.sql
-│   ├── day02-crud-joins.sql
-│   ├── day03-groupby-subquery.sql
-│   ├── day04-sql-exercises.sql
-│   ├── day05-sakila-basic.sql
-│   ├── day06-sakila-analysis.sql
-│   ├── day07-employees-explain.sql
-│   └── notes.md
+│   ├── day01
+│   ├── day02
+│   ├── day03
+│   ├── day04
+│   ├── day05
+│   ├── day06
+│   └── day07
 ├── mysql/
 │   ├── sakila/
 │   │   ├── queries.sql
