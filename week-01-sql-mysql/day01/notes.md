@@ -123,7 +123,7 @@ CREATE TABLE student(
 这里foreign key作为链接，链接两张表的字段，让test表中也能存储获取student id，并对应test的subject
 foregin key的值可以重复，但一定是另一张表的primary key或者唯一标识，且当主表数据发生变化，foreign key会导致连锁反应
 
-### INSERT INTO
+### INSERT INTO & VALUES
 
 ```text
 CREATE TABLE bands(
@@ -168,3 +168,121 @@ SELECT * FROM bands ORDER BY name ASC;
 SELECT * FROM bands ORDER BY name DESC;
 ```
 default情况下，直接order by name会呈现ASC的形式
+
+### DISTINCT
+
+```text
+SELECT DISTINCT name FROM albums
+```
+
+这个时候会从 albums table中切出name这一栏，但是会把重复项去掉
+比如有两个albums都叫ikun，他只会显示一个ikun
+
+### UPDATE & SET
+
+```text
+UPDATE albums
+SET release_year = 1982
+```
+这会让整个albums里的每一个元素的release_year都变为1982
+
+### WHERE
+
+```text
+UPDATE albums
+SET release_year = 1982
+WHERE id = 1;
+```
+通过where关键词的使用，我们可以指定一个column改变变量，而不是整体改变，起到了filter的作用
+我们还可以这样使用:
+
+```text
+SELECT * FROM albums
+WHERE release_year < 2000;
+```
+输出release_year < 2000的albums
+
+### LIKE
+
+```text
+SELECT * FROM albums
+WHERE name LIKE '%er%'
+```
+会输出name column里任意位置有er连续出现的元素。
+相似的：
+
+```text
+       %er -- 表示er结尾
+       er% -- 表示er开头
+       er -- 恰好为er
+```
+
+### AND & OR
+
+```text
+SELECT * FROM albums
+WHERE name LIKE '%er%' AND band_id = 2;
+
+SELECT * FROM albums
+WHERE name LIKE '%er%' OR band_id = 2;
+```
+就像boolean一样，and输出两个条件都满足的结果，or输出任意一个条件满足的结果
+
+### BETWEEN
+
+```text
+SELECT * FROM albums
+WHERE release_year BETWEEN 2000 AND 2018;
+```
+则会输出release_year 2000 - 2018的结果，且2000和2018都包括，为闭区间
+
+### IS NULL
+
+```text
+SELECT * FROM albums
+WHERE release_year IS NULL;
+```
+输出release_year为null值
+
+### DELETE FROM
+
+```text
+DELETE FROM albums WHERE id = 5;
+```
+会删除albums里id为5的row
+
+### JOIN ON
+
+```text
+SELECT * FROM bands
+JOIN albums ON bands.id = albums.band_id;
+```
+即只要bands table里的id = albums table里的band_id就把该row拼凑在一行
+但是Join本身不会让bands_id和id合并，他们两个还是独立存在的
+且由于你一开始select了bands，会让合并表里的bands元素出现在左边，albums出现在右边
+
+#### INNER JOIN ON
+
+```text
+SELECT * FROM bands
+INNER JOIN albums ON bands.id = albums.band_id;
+```
+inner join和原本的join没有区别，都是一一对应，然后没有对应元素的bands/albums我们会忽略，不显示
+
+#### LEFT JOIN ON
+
+```text
+SELECT * FROM bands
+LEFT JOIN albums ON bands.id = albums.band_id;
+```
+在这里会显示所有bands的元素，即使他没有对应的albums
+
+#### RIGHT JOIN ON
+
+```text
+SELECT * FROM bands
+RIGHT JOIN albums ON bands.id = albums.band_id;
+```
+会显示所有的albums元素，即使他没有对应的bands
+
+### Aggregate function
